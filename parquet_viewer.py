@@ -9,9 +9,17 @@ def open_parquet_file():
     if file_path:
         parquet_data = pq.read_table(file_path)
         df = parquet_data.to_pandas()
-        text.delete(1.0, tk.END)
-        text.insert(tk.END, df.to_string())
-        display_file_summary(df)
+        display_top_rows(df)
+
+# Function to display the top rows of the DataFrame
+def display_top_rows(df):
+    num_rows = int(top_rows_entry.get())
+    df_head = df.head(num_rows)
+    text.config(state=tk.NORMAL)
+    text.delete(1.0, tk.END)
+    text.insert(tk.END, df_head.to_string())
+    text.config(state=tk.DISABLED)
+    display_file_summary(df)
 
 # Function to display a summary of the loaded file
 def display_file_summary(df):
@@ -21,6 +29,7 @@ def display_file_summary(df):
     summary_text.insert(tk.END, f"Number of rows: {len(df)}\n")
     summary_text.insert(tk.END, f"Number of columns: {len(df.columns)}\n")
     summary_text.insert(tk.END, f"Index Range: {df.index[0]} - {df.index[-1]}\n")
+
     summary_text.config(state=tk.DISABLED)
 
 # Create the main application window
@@ -39,6 +48,13 @@ text.config(yscrollcommand=scrollbar.set)
 # Create an "Open" button to select a Parquet file
 open_button = tk.Button(app, text="Open Parquet File", command=open_parquet_file)
 open_button.pack()
+
+# Create an Entry field to specify the number of rows to display
+top_rows_label = tk.Label(app, text="Number of Rows to Display:")
+top_rows_label.pack()
+top_rows_entry = tk.Entry(app)
+top_rows_entry.insert(0, "10")  # Default to displaying 10 rows
+top_rows_entry.pack()
 
 # Create a Text widget for displaying file summary
 summary_text = tk.Text(app, wrap=tk.NONE, height=4, state=tk.DISABLED)
