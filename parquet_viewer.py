@@ -1,3 +1,4 @@
+#!/Users/noorainkazmi/miniforge3/bin/python3
 import tkinter as tk
 from tkinter import filedialog
 import pandas as pd
@@ -36,14 +37,21 @@ def display_file_summary(df):
 app = tk.Tk()
 app.title("Parquet File Reader")
 
-# Create a Text widget to display Parquet data
-text = tk.Text(app, wrap=tk.NONE)
+# Create a Text widget to display Parquet data with horizontal scrolling
+text_frame = tk.Frame(app)
+text_frame.pack(fill=tk.BOTH, expand=True)
+text = tk.Text(text_frame, wrap=tk.NONE)
 text.pack(fill=tk.BOTH, expand=True)
 
-# Create a Scrollbar and associate it with the Text widget
-scrollbar = tk.Scrollbar(app, command=text.yview)
-scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-text.config(yscrollcommand=scrollbar.set)
+# Create a horizontal scrollbar and associate it with the Text widget
+xscrollbar = tk.Scrollbar(text_frame, orient=tk.HORIZONTAL, command=text.xview)
+xscrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+text.config(xscrollcommand=xscrollbar.set)
+
+# Create a vertical scrollbar and associate it with the Text widget
+yscrollbar = tk.Scrollbar(app, command=text.yview)
+yscrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+text.config(yscrollcommand=yscrollbar.set)
 
 # Create an "Open" button to select a Parquet file
 open_button = tk.Button(app, text="Open Parquet File", command=open_parquet_file)
@@ -62,4 +70,3 @@ summary_text.pack(fill=tk.BOTH, expand=False)
 
 # Start the main application loop
 app.mainloop()
-
