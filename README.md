@@ -19,3 +19,13 @@
 - Activate your base environment. If you're using Anaconda, you can do this with the command conda activate base.
 - Once the environment is activated, type which python (or which python3 if you're using Python 3). This will print the full path to the Python executable.
 - Once you have the path, you can use it in the Automator action. For example, if the path is /Users/YourName/anaconda3/bin/python, you would enter /Users/YourName/anaconda3/bin/python /Users/YourName/Scripts/parquet_viewer.py in the "Run Shell Script" action.
+
+### To change the icon of an Automator application (or any application) in MacOS, follow these steps:
+
+- Find the icon file you want to use. It should be a .icns file. If you have a .png or .jpg, you can convert it to .icns using an online converter.
+- Open the info window for the application. You can do this by selecting the application and pressing Command + I, or by right-clicking the application and choosing Get Info.
+- Open the icon file in Preview. You can do this by double-clicking the icon file.
+- In Preview, select all (Command + A) and copy (Command + C).
+- Go back to the info window for the application. Click the small icon at the top left of the window to select it (it should get a blue highlight).
+- Paste the new icon (Command + V).
+- The icon for the application should now be changed.
